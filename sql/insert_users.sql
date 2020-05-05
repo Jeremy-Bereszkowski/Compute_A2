@@ -1,19 +1,8 @@
 use paybuddy_db;
 
 /*  Test users */
-insert into test (value)
-values ('abc');
+insert into users (fname,lname,clearance,email,password)
+values ('jeremy', 'beresh', 'admin', 'j.beresh@hotmail.com', 'hello');
 
-insert into test (value)
-values ('def');
-
-insert into test (value)
-values ('ghi');
-
-insert into test (value)
-values ('jkl');
-
-
-
-select * from users;
-select * from cust_transfer;
+insert into users (fname,lname,clearance,email,password)
+values ('ye wyn', 'woon', 'admin', 's3675485@student.rmit.edu.au', 'testpass');

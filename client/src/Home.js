@@ -5,9 +5,9 @@ import UnAuthApp from './unauthenticated-app';
 class Home extends Component {
   
   // calls the logout method in authentication service
-  logout = () => {
+  /* logout = () => {
     this.props.auth.logout();
-  }
+  } */
 
   render() {
     // calls the isAuthenticated method in authentication service
@@ -16,14 +16,16 @@ class Home extends Component {
 
     return (
       <div>
-        {
+        {/* {
           //isAuthenticated() && <App logoutHandler={this.logout}/> 
           isAuthenticated && <App logoutHandler={this.logout}/>
         }
         {
           //!isAuthenticated() && <UnAuthApp auth={this.props.auth}/>
           !isAuthenticated && <UnAuthApp auth={this.props.auth}/>
-        }
+        } */}
+
+        {<App auth={this.props.auth}/>}
       </div>
     );
   }

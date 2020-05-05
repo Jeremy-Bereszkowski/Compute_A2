@@ -1,23 +1,24 @@
 use test;
 
-CREATE TABLE IF NOT EXISTS test
+CREATE TABLE IF NOT EXISTS users
 (
-	id int not null AUTO_INCREMENT,
-	value varchar(25) NOT NULL,
+	user_id int not null AUTO_INCREMENT,
+	fname varchar(25) NOT NULL,
+	lname varchar(25) NOT NULL,
+	clearance enum('read-only', 'edit', 'admin') not null,
+	email varchar(50) NOT NULL,
+	password varchar(25) NOT NULL,
 
-	PRIMARY KEY (id)
+	PRIMARY KEY (user_id)
 );
 
-
-describe users;
-+---------------+-------------+------+-----+---------+----------------+
-| Field         | Type        | Null | Key | Default | Extra          |
-+---------------+-------------+------+-----+---------+----------------+
-| cust_id       | int(11)     | NO   | PRI | NULL    | auto_increment |
-| fname         | varchar(25) | NO   |     | NULL    |                |
-| lname         | varchar(25) | NO   |     | NULL    |                |
-| account_value | int(11)     | YES  |     | 0       |                |
-| email         | varchar(25) | NO   |     | NULL    |                |
-| password      | varchar(25) | NO   |     | NULL    |                |
-+---------------+-------------+------+-----+---------+----------------+
-
++-----------+----------------------------------+------+-----+---------+----------------+
+| Field     | Type                             | Null | Key | Default | Extra          |
++-----------+----------------------------------+------+-----+---------+----------------+
+| user_id   | int(11)                          | NO   | PRI | NULL    | auto_increment |
+| fname     | varchar(25)                      | NO   |     | NULL    |                |
+| lname     | varchar(25)                      | NO   |     | NULL    |                |
+| clearance | enum('read-only','edit','admin') | NO   |     | NULL    |                |
+| email     | varchar(50)                      | NO   |     | NULL    |                |
+| password  | varchar(25)                      | NO   |     | NULL    |                |
++-----------+----------------------------------+------+-----+---------+----------------+

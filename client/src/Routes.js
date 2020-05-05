@@ -15,4 +15,4 @@ const Routes = () => (
   </Router>
 );
 
-export default Routes;
+export default Routes

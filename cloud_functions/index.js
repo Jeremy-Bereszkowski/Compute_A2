@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const mysql = require('promise-mysql');
 const bodyParser = require('body-parser');
@@ -8,7 +10,6 @@ var router = express.Router();
 router.use(bodyParser.urlencoded({extended: false}));
 router.use(bodyParser.json());
 
-// [START cloud_sql_mysql_mysql_create]
 let pool;
 const createPool = async () => {
   pool = await mysql.createPool({
@@ -17,11 +18,11 @@ const createPool = async () => {
     database: "test",
     
     // If connecting via unix domain socket, specify the path
-    socketPath: '/cloudsql/compute-a2-2020:australia-southeast1:compute-a2-mysql',//${process.env.CLOUD_SQL_CONNECTION_NAME}',
+    socketPath: '/cloudsql/compute-a2-2020:australia-southeast1:compute-a2-mysql',
     
     // If connecting via TCP, enter the IP and port instead
-    /* host: '127.0.0.1',
-    port: 1433, */
+    //host: process.env.DB_HOST,
+    //port: process.env.DB_PORT,
 
     connectionLimit: 5,
     connectTimeout: 10000,
@@ -29,20 +30,29 @@ const createPool = async () => {
     waitForConnections: true,
     queueLimit: 0,
   });
+
 };
 createPool();
 
-exports.helloWorld = router.get('/helloWorld', async (req, res) => {
-    try {
-        const testQuery = 'select * from test;';
-    
-        //Run queries
-        var testData = await pool.query(testQuery);
+exports.helloWorld = router.post('/login', async (req, res) => {
 
-    } catch (err) {
-        res.end(err);
+  try {
+    //Create new deposit record
+    const getUserDetails = 'select password, clearance from users where email="' + req.body.uname + '";';
+
+    //Run query - fetch response
+    var userDetails = await pool.query(getUserDetails);
+
+    if (userDetails.length < 1) {
+      res.status(403).send({message: 'Unkown E-Mail'}).end();
     }
-    
-    res.end(JSON.stringify({testData: testData}));
-    //res.end('Hello, World!');
+    else if (userDetails[0].password === req.body.pword) {
+      res.status(200).send(userDetails[0].clearance).end();
+    }
+    else {
+      res.status(403).end(JSON.stringify({message: 'Incorrect Password'}));
+    }
+  } catch (err) {
+    res.status(500).send('Connection error!').end();
+  }
 });

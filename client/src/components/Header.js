@@ -5,7 +5,7 @@ class Header extends Component {
     render() {
         return (
             <nav className="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow">
-                <a href="/dashboard" class="navbar-brand col-sm-3 col md 2 mr-0">{process.env.REACT_APP_NAME}</a>
+                <span class="navbar-brand col-sm-3 col md 2 mr-0">{process.env.REACT_APP_NAME}</span>
                 <ul class="navbar-nav px-3">
                     {this.props.items.map((item, index) => (
                         <li class="nav-item text-nowrap" id={index}>
