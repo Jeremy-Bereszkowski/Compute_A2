@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import React, { useState } from 'react'
+import Auth from './auth';
+import Login from './components/LoginForm'
 import Header from './components/Header'
-import Dashboard from './components/Dashboard'
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-import Footer from './components/Footer';
+import Router from './components/Routes'
+import Footer from './components/Footer'
 
-
+const auth = new Auth();
 
 function App(props) {
 
@@ -50,7 +44,7 @@ function App(props) {
   }
 
   const handleLoginLogout = () => {
-    if (props.auth.isAuthenticated == true)
+    if (auth.isAuthenticated === true)
     {
       this.props.auth.logout();
     }
@@ -60,7 +54,7 @@ function App(props) {
   }
 
   function TestBlock() {
-    if (props.auth.isAuthenticated == true)
+    if (auth.isAuthenticated === true)
     {
       return (
         <div>
@@ -82,41 +76,12 @@ function App(props) {
   ];
 
   return (
-    <div class="App">
-      <Router>
-        <Header items={headerItems}/>
-        <main>
-          <Route exact path="/">
-            {/* <Dashboard/> */}
-            
-          </Route>
-          {/* <Route path="/project" component={Project}/> */}
-        </main>
-        <Footer />
-      </Router>
-
+    <div className="App">
+      <Login show={show} closeForm={closeForm} login={login} err={err}/>
+      <Header items={headerItems}/>
+      <Router />
+      <Footer />
       {<TestBlock />}
-      <Modal show={show} onHide={closeForm}>
-          <Modal.Header closeButton>
-            <Modal.Title>Login</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <form onSubmit={login} class='form_css'>
-              <div class='form-item'>
-                <label htmlFor='username'>E-Mail</label>
-                <input class='input' id='username' type='text'/>
-              </div>
-              <div class='form-item'>
-                <label htmlFor='password'>Password</label>
-                <input class='input' id='password' type='password'/>
-              </div>
-              <div class='loginButton'>
-                <Button type='submit' variant='primary'>Login</Button>
-              </div>
-              {err ? 'Incorrect E-Mail or Password' : null}
-            </form>
-          </Modal.Body>
-        </Modal>
     </div>
   );
 }
