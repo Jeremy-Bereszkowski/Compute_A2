@@ -34,9 +34,14 @@ const createPool = async () => {
 };
 createPool();
 
-exports.helloWorld = router.post('/login', async (req, res) => {
 
+
+exports.helloWorld = router.post('/login', async (req, res) => {
   try {
+    res.set('Access-Control-Allow-Methods', 'GET');
+    res.set('Access-Control-Allow-Headers', 'Content-Type');
+    res.set('Access-Control-Max-Age', '3600');
+    res.status(204).send('');
     //Create new deposit record
     const getUserDetails = 'select password, clearance from users where email="' + req.body.uname + '";';
 

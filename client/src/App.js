@@ -4,6 +4,7 @@ import Login from './components/LoginForm'
 import Header from './components/Header'
 import Router from './components/Routes'
 import Footer from './components/Footer'
+import './css/index.css';
 
 const auth = new Auth();
 
