@@ -1,0 +1,7 @@
+Gcloud Functions:
+
+    Run Function Locally:
+        npm start
+
+    Deploy Function to Google:
+        gcloud beta functions deploy "helloWorld" --allow-unauthenticated --trigger-http --runtime="nodejs10"
