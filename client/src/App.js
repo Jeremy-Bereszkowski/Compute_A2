@@ -4,7 +4,8 @@ import Login from './components/LoginForm'
 import Header from './components/Header'
 import Router from './components/Routes'
 import Footer from './components/Footer'
-import './css/index.css';
+import './css/index.css'
+import Forecast5 from './OpenWeatherAPI'
 
 const auth = new Auth();
 
@@ -80,6 +81,7 @@ function App(props) {
     <div className="App">
       <Login show={show} closeForm={closeForm} login={login} err={err}/>
       <Header items={headerItems}/>
+      <Forecast5/>
       <Router />
       <Footer />
       {<TestBlock />}
