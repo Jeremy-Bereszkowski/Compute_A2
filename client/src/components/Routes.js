@@ -1,11 +1,12 @@
 import React from 'react';
-import { Route, Router } from 'react-router-dom';
-import history from '../history';
+import { Route, Router } from 'react-router-dom'
+import history from '../history'
+import Forecast5 from '../OpenWeatherAPI'
 
 const Routes = () => (
   <Router history={history}>
     <div>
-      {/* <Route exact path="/" render={(props) => <Home auth={auth} {...props} />} /> */}
+      <Route exact path="/" render={(props) => <Forecast5 {...props} />} />
     </div>
   </Router>
 );
