@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import { fetchForecastByCityName } from './services/openweathermap';
-
-import ForecastView from './ForecastView';
+import React, { Component } from 'react'
+import moment from 'moment'
+import { fetchForecastByCityName } from '../services/openweathermap'
+import ForecastView from '../views/ForecastView'
 
 class Forecast5 extends Component {
 

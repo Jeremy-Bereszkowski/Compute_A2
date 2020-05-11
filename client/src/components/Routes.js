@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Router } from 'react-router-dom'
-import history from '../history'
-import Forecast5 from '../OpenWeatherAPI'
+import history from './res/history'
+import Forecast5 from './OpenWeatherAPI'
 
 const Routes = () => (
   <Router history={history}>

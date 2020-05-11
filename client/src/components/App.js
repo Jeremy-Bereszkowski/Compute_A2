@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import Auth from './auth';
-import Login from './components/LoginForm'
-import Header from './components/Header'
-import Router from './components/Routes'
-import Footer from './components/Footer'
-import './css/index.css'
+import Auth from './res/auth';
+import Login from './LoginForm'
+import Header from './Header'
+import Router from './Routes'
+import Footer from './Footer'
+import '../css/index.css'
 
 const auth = new Auth();
 
