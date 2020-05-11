@@ -1,7 +1,7 @@
 import React from 'react';
-import Loading from './Loading';
-import Item from './Forecast1';
-import './index.scss';
+import Loading from './res/Loading';
+import Item from './res/Forecast1';
+import './res/index.scss';
 
 const formatCityName = cityName => {
 	const data = cityName.split(',');
