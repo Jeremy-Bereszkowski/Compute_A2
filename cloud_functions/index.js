@@ -34,16 +34,13 @@ const createPool = async () => {
 };
 createPool();
 
+exports.auth = router.post('/login', async (req, res) => {
+  const username = req.body.uname;
+  const password = req.body.pword;
 
-
-exports.helloWorld = router.post('/login', async (req, res) => {
   try {
-    res.set('Access-Control-Allow-Methods', 'GET');
-    res.set('Access-Control-Allow-Headers', 'Content-Type');
-    res.set('Access-Control-Max-Age', '3600');
-    res.status(204).send('');
     //Create new deposit record
-    const getUserDetails = 'select password, clearance from users where email="' + req.body.uname + '";';
+    const getUserDetails = 'select password, clearance from users where email="' + username + '";';
 
     //Run query - fetch response
     var userDetails = await pool.query(getUserDetails);
@@ -51,7 +48,7 @@ exports.helloWorld = router.post('/login', async (req, res) => {
     if (userDetails.length < 1) {
       res.status(403).send({message: 'Unkown E-Mail'}).end();
     }
-    else if (userDetails[0].password === req.body.pword) {
+    else if (userDetails[0].password === password) {
       res.status(200).send(userDetails[0].clearance).end();
     }
     else {

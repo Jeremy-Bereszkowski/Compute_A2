@@ -24,7 +24,7 @@ function App(props) {
     event.preventDefault();
     const {username, password} = event.target.elements;
 
-    fetch('https://us-central1-compute-a2-2020.cloudfunctions.net/helloWorld', {
+    fetch('projects/compute-a2-2020/locations/us-central1/functions/auth', {
       method: 'post',
       headers: {
         'content-type': 'application/json'
