@@ -23,11 +23,13 @@ function App(props) {
   function login(event) {
     event.preventDefault();
     const {username, password} = event.target.elements;
-
-    fetch('https://us-central1-compute-a2-2020.cloudfunctions.net/helloWorld', {
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    fetch(proxyurl + 'https://us-central1-compute-a2-2020.cloudfunctions.net/helloWorld', {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://localhost:3000',
+        'Access-Control-Allow-Credentials': 'true'
       },
       body: JSON.stringify({
         uname: username.value,

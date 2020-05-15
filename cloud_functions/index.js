@@ -21,8 +21,8 @@ const createPool = async () => {
     socketPath: '/cloudsql/compute-a2-2020:australia-southeast1:compute-a2-mysql',
     
     // If connecting via TCP, enter the IP and port instead
-    //host: process.env.DB_HOST,
-    //port: process.env.DB_PORT,
+    //host: '127.0.0.1',
+    //port: 1433,
 
     connectionLimit: 5,
     connectTimeout: 10000,
@@ -38,10 +38,10 @@ createPool();
 
 exports.helloWorld = router.post('/login', async (req, res) => {
   try {
-    res.set('Access-Control-Allow-Methods', 'GET');
+   /*  res.set('Access-Control-Allow-Methods', 'POST');
     res.set('Access-Control-Allow-Headers', 'Content-Type');
     res.set('Access-Control-Max-Age', '3600');
-    res.status(204).send('');
+    res.status(204).send(''); */
     //Create new deposit record
     const getUserDetails = 'select password, clearance from users where email="' + req.body.uname + '";';
 
@@ -52,7 +52,7 @@ exports.helloWorld = router.post('/login', async (req, res) => {
       res.status(403).send({message: 'Unkown E-Mail'}).end();
     }
     else if (userDetails[0].password === req.body.pword) {
-      res.status(200).send(userDetails[0].clearance).end();
+      res.status(200).send({response: userDetails[0].clearance}).end();
     }
     else {
       res.status(403).end(JSON.stringify({message: 'Incorrect Password'}));
