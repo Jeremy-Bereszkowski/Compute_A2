@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS users
 	PRIMARY KEY (user_id)
 );
 
+describe users;
 +-----------+----------------------------------+------+-----+---------+----------------+
 | Field     | Type                             | Null | Key | Default | Extra          |
 +-----------+----------------------------------+------+-----+---------+----------------+
@@ -22,3 +23,22 @@ CREATE TABLE IF NOT EXISTS users
 | email     | varchar(50)                      | NO   |     | NULL    |                |
 | password  | varchar(25)                      | NO   |     | NULL    |                |
 +-----------+----------------------------------+------+-----+---------+----------------+
+
+CREATE TABLE IF NOT EXISTS user_favorite_city
+(
+	user_favorite_city_id int not null AUTO_INCREMENT,
+	user_id int not null,
+	fav_city varchar(50),
+
+	PRIMARY KEY (user_favorite_city_id),
+	FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+describe user_favorite_city;
++-----------------------+-------------+------+-----+---------+----------------+
+| Field                 | Type        | Null | Key | Default | Extra          |
++-----------------------+-------------+------+-----+---------+----------------+
+| user_favorite_city_id | int(11)     | NO   | PRI | NULL    | auto_increment |
+| user_id               | int(11)     | NO   | MUL | NULL    |                |
+| fav_city              | varchar(50) | YES  |     | NULL    |                |
++-----------------------+-------------+------+-----+---------+----------------+

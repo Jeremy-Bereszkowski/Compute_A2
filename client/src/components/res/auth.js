@@ -3,20 +3,19 @@ import history from './history';
 export default class Auth {
 
   handleAuthentication = (response) => {
-    if (response.status === 200) {
-      this.setSession(response.body);
-      history.replace('/home');
-    }
+    this.setSession(response);
+    history.replace('/');
   }
 
   setSession = (body) => {
+    console.log(body);
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify((64000) + new Date().getTime());
     localStorage.setItem('access_token', body.clearance);
     localStorage.setItem('id_token', body.user_id);
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
-    history.replace('/home');
+    history.replace('/');
   }  
 
   // removes user details from localStorage

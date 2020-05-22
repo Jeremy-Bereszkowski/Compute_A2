@@ -12,6 +12,7 @@ function App(props) {
 
   const [show, setShow] = useState(false);
   const [err, setErr] = useState(false);
+  const [test, setTest] = useState('');
 
   const handleShow = () => setShow(true);
 
@@ -23,54 +24,40 @@ function App(props) {
   function login(event) {
     event.preventDefault();
     const {username, password} = event.target.elements;
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    fetch(proxyurl + 'https://us-central1-compute-a2-2020.cloudfunctions.net/helloWorld', {
+    fetch('https://us-central1-compute-a2-2020.cloudfunctions.net/auth/login', {
       method: 'post',
+      mode: 'cors',
       headers: {
         'content-type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:3000',
-        'Access-Control-Allow-Credentials': 'true'
+        'Accept': 'application/json',
+        'Origin':'http://localhost:3000',
       },
       body: JSON.stringify({
         uname: username.value,
         pword: password.value
       })
     })
-    .then((response) => {
-      if (response.status === 200) {
-        props.auth.handleAuthentication(response);
-        closeForm();
+    .then(res => {
+      if (res.status === 200) {
+        return res.json()
       } else {
         setErr(true);
       }
     })
+    .then(res => {
+      auth.handleAuthentication(res);
+      closeForm();
+      setTest('Logged in');
+    })
+    .catch(err => console.log(err));
   }
 
   const handleLoginLogout = () => {
-    if (auth.isAuthenticated === true)
-    {
+    if (auth.isAuthenticated === true) {
       this.props.auth.logout();
-    }
-    else {
+      setTest('Logged out');
+    } else {
       handleShow();
-    }
-  }
-
-  function TestBlock() {
-    if (auth.isAuthenticated === true)
-    {
-      return (
-        <div>
-          Logged in
-        </div>
-      )
-    }
-    else {
-      return (
-        <div>
-          Logged out
-        </div>
-      )
     }
   }
 
@@ -84,7 +71,7 @@ function App(props) {
       <Header items={headerItems}/>
       <Router />
       <Footer />
-      {<TestBlock />}
+      {test}
     </div>
   );
 }
