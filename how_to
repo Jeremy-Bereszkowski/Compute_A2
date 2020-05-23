@@ -4,4 +4,4 @@ Gcloud Functions:
         npm start
 
     Deploy Function to Google:
-        gcloud beta functions deploy "helloWorld" --allow-unauthenticated --trigger-http --runtime="nodejs10"
+        gcloud beta functions deploy "auth" --allow-unauthenticated --trigger-http --runtime="nodejs10"

@@ -46,7 +46,7 @@ exports.auth = router.post('/login', cors(), async (req, res) => {
     res.set('Access-Control-Max-Age', '3600');
 
     //Create new deposit record
-    const getUserDetails = 'select user_id, password, clearance from users where email="' + req.body.uname + '";';
+    const getUserDetails = 'select user_id, fname, password, clearance from users where email="' + req.body.uname + '";';
 
     //Run query - fetch response
     var userDetails = await pool.query(getUserDetails);
@@ -55,7 +55,7 @@ exports.auth = router.post('/login', cors(), async (req, res) => {
       res.status(403).send({message: 'Unkown E-Mail'}).end();
     }
     else if (userDetails[0].password === req.body.pword) {
-      res.status(200).send({user_id: userDetails[0].user_id, clearance: userDetails[0].clearance}).end();
+      res.status(200).send({user_id: userDetails[0].user_id, fname: userDetails[0].fname, clearance: userDetails[0].clearance}).end();
     }
     else {
       res.status(403).end(JSON.stringify({message: 'Incorrect Password'}));

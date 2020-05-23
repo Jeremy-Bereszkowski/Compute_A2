@@ -1,7 +1,10 @@
 import React, { Component, useState } from 'react'
 import moment from 'moment'
+import Auth from './res/auth';
 import { fetchForecastByCityName } from '../services/openweathermap'
 import ForecastView from '../views/ForecastView'
+
+const auth = new Auth();
 
 class Forecast5 extends Component {
 
@@ -28,17 +31,22 @@ class Forecast5 extends Component {
 
 		let cityName = ''
 
-		await fetch('https://us-central1-compute-a2-2020.cloudfunctions.net/auth/favCity/' + localStorage.getItem('id_token'))
-		.then((res) => {
-			if (res.status === 200) {
-				return res.json();
-			}
-		})
-		.then((res) => {
-			console.log(res)
-			cityName= res[0].fav_city
-			
-		})
+		if (auth.isAuthenticated() === true) {
+			await fetch('https://us-central1-compute-a2-2020.cloudfunctions.net/auth/favCity/' + localStorage.getItem('id_token'))
+			.then((res) => {
+				if (res.status === 200) {
+					return res.json();
+				}
+			})
+			.then((res) => {
+				console.log(res)
+				cityName= res[0].fav_city
+				
+			})
+		} else {
+			cityName= 'Brisbane,AU'
+		}
+		
 
 		this.cityName = cityName
 		
