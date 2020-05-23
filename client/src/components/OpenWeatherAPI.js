@@ -16,10 +16,10 @@ class Forecast5 extends Component {
 	}
 	this.getForecastData = this.getForecastData.bind(this);
 	this.onTodoChange = this.onTodoChange.bind(this);
+	}
 
 
 
-	cityName = 'melbourne,au'
 
 	componentWillMount() {	
 		
@@ -31,7 +31,7 @@ class Forecast5 extends Component {
 
 	async getForecastData() {
 
-		let cityName = ''
+		/*let cityName = ''
 
 		if (auth.isAuthenticated() === true) {
 			await fetch('https://us-central1-compute-a2-2020.cloudfunctions.net/auth/favCity/' + localStorage.getItem('id_token'))
@@ -51,7 +51,7 @@ class Forecast5 extends Component {
 		
 
 		this.cityName = cityName
-		
+		*/
 		this.setState({ loading: true });
 		const result = await fetchForecastByCityName(this.state.cityName);
 
@@ -94,5 +94,6 @@ class Forecast5 extends Component {
 		);
 	}
 }
+
 
 export default Forecast5;
