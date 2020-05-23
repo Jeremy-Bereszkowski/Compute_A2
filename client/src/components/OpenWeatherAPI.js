@@ -7,16 +7,17 @@ import ForecastView from '../views/ForecastView'
 const auth = new Auth();
 
 class Forecast5 extends Component {
-
-	apiCall() {
-		
-	}
-	
-	
-	state = {
+	constructor(props){
+	super(props)
+	this.state = {
 		loading: false,
-		forecast: []
+		forecast: [],
+		cityName: 'Melbourne,au'
 	}
+	this.getForecastData = this.getForecastData.bind(this);
+	this.onTodoChange = this.onTodoChange.bind(this);
+
+
 
 	cityName = 'melbourne,au'
 
@@ -26,6 +27,7 @@ class Forecast5 extends Component {
 		
 		this.getForecastData();
 	}
+	
 
 	async getForecastData() {
 
@@ -51,7 +53,8 @@ class Forecast5 extends Component {
 		this.cityName = cityName
 		
 		this.setState({ loading: true });
-		const result = await fetchForecastByCityName(cityName);
+		const result = await fetchForecastByCityName(this.state.cityName);
+
 		this.setState({
 			loading: false,
 			forecast: result.list.map(item => ({
@@ -63,14 +66,31 @@ class Forecast5 extends Component {
 		});
 	}
 
+	onTodoChange(e){
+		console.log(e)
+		this.setState({
+			cityName: e.target.value
+		});
+		console.log(this.cityName)
+    }
+
 	render() {
 		return (
+			<div className="input-container">
+			<h1 className="input-header" id="homeHeader">Enter a Location and Country and Press Enter</h1>
+			<div className="input-controls">
+				<input type="text" placeholder="Melbourne, au" className="form-control" onKeyPress={(e) => {this.onTodoChange(e)}}/>
+				{console.log(this.state.cityName)}
+
+			</div>
 			<ForecastView
-				cityName={this.cityName}
+				cityName={this.state.cityName}
 				forecast={this.state.forecast}
 				loading={this.state.loading}
 				onPressRefresh={() => this.getForecastData()}
 			/>
+					</div>
+
 		);
 	}
 }
