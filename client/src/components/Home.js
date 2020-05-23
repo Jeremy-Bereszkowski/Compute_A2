@@ -7,8 +7,8 @@ class Home extends Component{
     render(){
         return (
             <div className='rowC'>
-                <Forecast5/>
-                <MapContainer/>
+                <div class="one"><Forecast5/></div>
+                <div class="two"><MapContainer/></div>
             </div>
         )
     }

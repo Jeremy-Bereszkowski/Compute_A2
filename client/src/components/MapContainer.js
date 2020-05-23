@@ -8,8 +8,9 @@ class MapContainer extends Component {
 			<div style={{ margin: '100px' }}>
 				<Map
 					google={this.props.google}
-					center={{lat: 18.5204, lng: 73.8567}}
-					height='300px'
+					center={{lat: -37.808035, lng: 144.962807
+                    }}
+					height='500px'
 					zoom={15}
 				/>
 			</div>

@@ -9,8 +9,21 @@
     height: 100%;
   }
   .rowC{
-    display:flex;
-    flex-direction:row;
+    width: 80%;
+    height: 200px;
+    margin: auto;
+    padding: 10px;
+  }
+
+  .one{
+    width: 30%;
+    height: 200px;
+    float: left;
+  }
+
+  .two{
+    margin-left: 30%;
+    height: 200px;
   }
   
   #mount-point,
