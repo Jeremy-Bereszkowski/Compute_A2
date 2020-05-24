@@ -6,9 +6,17 @@ import './map.scss';
 class Home extends Component{
     render(){
         return (
-            <div className='rowC'>
-                <div class="one"><Forecast5/></div>
-                <div class="two"><MapContainer/></div>
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <div class="flex-md-row mb-4 shadow-sm h-md-250">
+                        <Forecast5/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="flex-md-row mb-4 shadow-sm h-md-250">
+                        <MapContainer/>
+                    </div>
+                </div>
             </div>
         )
     }

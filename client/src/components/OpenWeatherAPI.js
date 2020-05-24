@@ -1,10 +1,7 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import moment from 'moment'
-import Auth from './res/auth';
 import { fetchForecastByCityName } from '../services/openweathermap'
 import ForecastView from '../views/ForecastView'
-
-const auth = new Auth();
 
 class Forecast5 extends Component {
 	constructor(props) {
@@ -12,7 +9,7 @@ class Forecast5 extends Component {
 		this.state = {
 			loading: false,
 			forecast: [],
-			cityName: 'Melbourne,au'
+			cityName: 'Melbourne, AU'
 		}
 		this.getForecastData = this.getForecastData.bind(this);
 		this.onTodoChange = this.onTodoChange.bind(this);
@@ -22,9 +19,12 @@ class Forecast5 extends Component {
 		this.getForecastData();
 	}
 
-	async getForecastData() {
+	async getForecastData(city) {
 		this.setState({ loading: true });
-		const result = await fetchForecastByCityName(this.state.cityName);
+
+		const cityName = !city ? this.state.cityName : city
+
+		const result = await fetchForecastByCityName(cityName);
 
 		this.setState({
 			loading: false,
@@ -37,34 +37,46 @@ class Forecast5 extends Component {
 		});
 	}
 
-	onTodoChange(e){
-		console.log(e)
+	onTodoChange = (e) => {
+		e.preventDefault()
+		const city = e.target.city.value
 		this.setState({
-			cityName: e.target.value
+			...this.state,
+			cityName: city
 		});
-		console.log(this.cityName)
+		this.getForecastData(city);
     }
 
 	render() {
 		return (
 			<div className="input-container">
-			<h1 className="input-header" id="homeHeader">Enter a Location and Country and Press Enter</h1>
-			<div className="input-controls">
-				<input type="text" placeholder="Melbourne, au" className="form-control" onKeyPress={(e) => {this.onTodoChange(e)}}/>
-				{console.log(this.state.cityName)}
-
+			<h1 className="input-header" id="homeHeader">Enter a Location</h1>
+			<div >
+			<form onSubmit={(e) => {this.onTodoChange(e)}}>
+				<div class="row">
+				
+					<div class="col-sm">
+					<input id='city' type="text" placeholder="Format: City,Country" className="form-control" />
+					</div>
+					<div class="col-sm">
+						<button type="submit" class="btn btn-secondary"
+							disabled={this.state.loading}
+						>
+							Refresh
+						</button>
+					</div>
+				</div>
+					</form>
 			</div>
 				<ForecastView
 					cityName={this.state.cityName}
 					forecast={this.state.forecast}
 					loading={this.state.loading}
-					onPressRefresh={() => this.getForecastData()}
 				/>
 			</div>
 
 		);
 	}
 }
-
 
 export default Forecast5;

@@ -1,34 +1,37 @@
-import React from 'react';
-import Loading from './res/Loading';
-import Item from './res/Forecast1';
-import './res/index.scss';
+import React, { useState } from 'react'
+import Loading from './res/Loading'
+import Posts from './res/Posts'
+import Pagination from './res/Pagination'
+import './res/index.scss'
 
-const ForecastView = props => (
-	<div className="ForecastView">
-		<div className="city-name">
-			<span>{props.cityName}</span>
-		</div>
-		<div className="reload">
-			<button
-				onClick={props.onPressRefresh}
-				disabled={props.loading}
-			>
-				Refresh
-			</button>
-		</div>
-		{props.loading ? (
-			<Loading />
-		) : (
-			<div className="forecast-day">
-				{props.forecast.map((item, index) => (
-					<Item
-						key={index}
-						{...item}
-					/>
-				))}
+function ForecastView(props) {
+	const [currentPage, setCurrentPage] = useState(1);
+	const [postsPerPage] = useState(3);
+
+	const indexOfLastPost = currentPage * postsPerPage;
+	const indexOfFirstPost = indexOfLastPost - postsPerPage;
+	const currentPosts = props.forecast.slice(indexOfFirstPost, indexOfLastPost);
+
+	// Change page
+	const paginate = pageNumber => setCurrentPage(pageNumber);
+
+	return (
+		<div className="ForecastView">
+			<div className="city-name">
+				<span>{props.cityName}</span>
 			</div>
-		)}
-	</div>
-);
+			{props.loading ? ( <Loading /> ) : (
+				<div className="forecast-day">
+					<Posts posts={currentPosts}/>
+					<Pagination
+						postsPerPage={postsPerPage}
+						totalPosts={props.forecast.length}
+						paginate={paginate}
+					/>
+				</div>
+			)}
+		</div>
+	)
+}
 
 export default ForecastView;

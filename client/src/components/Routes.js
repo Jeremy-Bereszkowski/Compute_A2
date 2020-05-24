@@ -9,8 +9,6 @@ const Routes = () => (
   <Router history={history}>
     <div>
       <Route exact path="/" render={(props) => <Home {...props} />} />
-      <Route exact path="/weather" render={(props) => <Forecast5 {...props} />} />
-      <Route exact path="/map" render={(props) => <MapContainer {...props}/>} />
     </div>
   </Router>
 );

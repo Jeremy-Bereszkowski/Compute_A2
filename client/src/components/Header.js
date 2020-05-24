@@ -65,7 +65,7 @@ function Header(props) {
                 </div>
                 <div className='col-md'>
                   <li class="nav-item text-nowrap">
-                    <a class="nav-link" onClick={handleLoginLogout}>
+                    <a class="nav-link" onClick={handleLoginLogout} href=''>
                       {auth.isAuthenticated() ? 'Logout' : 'Login'}
                     </a>
                   </li>    

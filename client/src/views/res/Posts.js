@@ -1,5 +1,5 @@
-import React from 'react';
-import Item from './Forecast1';
+import React from 'react'
+import Item from './Forecast1'
 
 const Posts = ({ posts }) => {
   return (
