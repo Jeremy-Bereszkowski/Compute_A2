@@ -54,24 +54,23 @@ function Header(props) {
         handleShow();
       }
     }
-  
-    const headerItems = [
-      {title: auth.isAuthenticated() ? 'Logout' : 'Login', onClick: handleLoginLogout},
-      {title: userName},
-    ];
 
     return (
         <nav className="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow">
             <span class="navbar-brand col-sm-3 col md 2 mr-0">{process.env.REACT_APP_NAME}</span>
             <ul class="navbar-nav px-3">
-                {headerItems.map((item, index) => (
-                    <li class="nav-item text-nowrap" id={index}>
-                        <a href={item.link} class="nav-link" onClick={item.onClick}>
-                            {item.title}
-                        </a>
-                    </li>
-                ))}
-                
+              <div className='row'>
+                <div className='col-md '>
+                  <span class="navbar-brand col-sm-3 col md 2 mr-0">{auth.isAuthenticated() ? 'Welcome, ' + userName : ''}</span>
+                </div>
+                <div className='col-md'>
+                  <li class="nav-item text-nowrap">
+                    <a class="nav-link" onClick={handleLoginLogout}>
+                      {auth.isAuthenticated() ? 'Logout' : 'Login'}
+                    </a>
+                  </li>    
+                </div>
+              </div>               
             </ul>
 
             <Login show={show} closeForm={closeForm} login={login} err={err}/>

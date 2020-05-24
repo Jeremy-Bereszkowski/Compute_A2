@@ -7,51 +7,22 @@ import ForecastView from '../views/ForecastView'
 const auth = new Auth();
 
 class Forecast5 extends Component {
-	constructor(props){
-	super(props)
-	this.state = {
-		loading: false,
-		forecast: [],
-		cityName: 'Melbourne,au'
+	constructor(props) {
+		super(props)
+		this.state = {
+			loading: false,
+			forecast: [],
+			cityName: 'Melbourne,au'
+		}
+		this.getForecastData = this.getForecastData.bind(this);
+		this.onTodoChange = this.onTodoChange.bind(this);
 	}
-	this.getForecastData = this.getForecastData.bind(this);
-	this.onTodoChange = this.onTodoChange.bind(this);
-	}
-
-
-
 
 	componentWillMount() {	
-		
-		//console.log(this.apiCall());
-		
 		this.getForecastData();
 	}
-	
 
 	async getForecastData() {
-
-		/*let cityName = ''
-
-		if (auth.isAuthenticated() === true) {
-			await fetch('https://us-central1-compute-a2-2020.cloudfunctions.net/auth/favCity/' + localStorage.getItem('id_token'))
-			.then((res) => {
-				if (res.status === 200) {
-					return res.json();
-				}
-			})
-			.then((res) => {
-				console.log(res)
-				cityName= res[0].fav_city
-				
-			})
-		} else {
-			cityName= 'Brisbane,AU'
-		}
-		
-
-		this.cityName = cityName
-		*/
 		this.setState({ loading: true });
 		const result = await fetchForecastByCityName(this.state.cityName);
 
@@ -83,13 +54,13 @@ class Forecast5 extends Component {
 				{console.log(this.state.cityName)}
 
 			</div>
-			<ForecastView
-				cityName={this.state.cityName}
-				forecast={this.state.forecast}
-				loading={this.state.loading}
-				onPressRefresh={() => this.getForecastData()}
-			/>
-					</div>
+				<ForecastView
+					cityName={this.state.cityName}
+					forecast={this.state.forecast}
+					loading={this.state.loading}
+					onPressRefresh={() => this.getForecastData()}
+				/>
+			</div>
 
 		);
 	}

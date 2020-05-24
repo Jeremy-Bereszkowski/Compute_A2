@@ -3,12 +3,6 @@ import Loading from './res/Loading';
 import Item from './res/Forecast1';
 import './res/index.scss';
 
-/*const formatCityName = cityName => {
-	const data = cityName.split(',');
-	const city = data[0].substring(0, 1).toUpperCase() + data[0].substring(1);
-	return `${city}, ${data[1].toUpperCase()}`;
-}*/
-
 const ForecastView = props => (
 	<div className="ForecastView">
 		<div className="city-name">
