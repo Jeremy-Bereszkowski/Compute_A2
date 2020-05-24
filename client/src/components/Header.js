@@ -19,7 +19,7 @@ function Header(props) {
     function login(event) {
       event.preventDefault();
       const {username, password} = event.target.elements;
-      fetch('https://us-central1-compute-a2-2020.cloudfunctions.net/auth/login', {
+      fetch('http://computea22020-eval-test.apigee.net/auth', {
         method: 'post',
         mode: 'cors',
         headers: {
