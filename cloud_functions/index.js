@@ -46,7 +46,7 @@ exports.auth = router.post('/login', cors(), async (req, res) => {
     res.set('Access-Control-Max-Age', '3600');
 
     //Create new deposit record
-    const getUserDetails = 'select user_id, fname, password, clearance from users where email="' + req.body.uname + '";';
+    const getUserDetails = 'select users.user_id, users.fname, users.password, users.clearance, user_favorite_city.fav_city from users inner join user_favorite_city on users.user_id=user_favorite_city .user_id where users.email="' + req.body.uname + '";';
 
     //Run query - fetch response
     var userDetails = await pool.query(getUserDetails);

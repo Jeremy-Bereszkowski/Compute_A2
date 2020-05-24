@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './index.scss';
 
 const Forecast1 = props => (

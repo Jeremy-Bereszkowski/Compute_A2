@@ -46,7 +46,8 @@ function Header(props) {
       .catch(err => console.log(err));
     }
   
-    const handleLoginLogout = () => {
+    const handleLoginLogout = (e) => {
+      e.preventDefault()
       if (auth.isAuthenticated() === true) {
         auth.logout();
         window.location.reload(false);
@@ -57,15 +58,15 @@ function Header(props) {
 
     return (
         <nav className="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow">
-            <span class="navbar-brand col-sm-3 col md 2 mr-0">{process.env.REACT_APP_NAME}</span>
-            <ul class="navbar-nav px-3">
+            <span className="navbar-brand col-sm-3 col md 2 mr-0">{process.env.REACT_APP_NAME}</span>
+            <ul className="navbar-nav px-3">
               <div className='row'>
                 <div className='col-md '>
-                  <span class="navbar-brand col-sm-3 col md 2 mr-0">{auth.isAuthenticated() ? 'Welcome, ' + userName : ''}</span>
+                  <span className="navbar-brand col-sm-3 col md 2 mr-0">{auth.isAuthenticated() ? 'Welcome, ' + userName : ''}</span>
                 </div>
                 <div className='col-md'>
-                  <li class="nav-item text-nowrap">
-                    <a class="nav-link" onClick={handleLoginLogout} href=''>
+                  <li className="nav-item text-nowrap">
+                    <a className="nav-link" onClick={handleLoginLogout} href=''>
                       {auth.isAuthenticated() ? 'Logout' : 'Login'}
                     </a>
                   </li>    

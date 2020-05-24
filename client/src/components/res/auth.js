@@ -13,12 +13,14 @@ export default class Auth {
     localStorage.setItem('access_token', body.clearance);
     localStorage.setItem('id_token', body.user_id);
     localStorage.setItem('user_fname', body.fname.toUpperCase());
+    localStorage.setItem('fav_city', body.city);
     localStorage.setItem('expires_at', expiresAt);
+  
     // navigate to the home route
 
     history.replace('/');
     window.location.reload(false);
-  }  
+  }
 
   // removes user details from localStorage
   logout = () => {
@@ -34,6 +36,10 @@ export default class Auth {
 
   getUserName = () => {
     return localStorage.getItem('user_fname')
+  }
+
+  getFavCity = () => {
+    return localStorage.getItem('fav_city');
   }
 
   // checks if the user is authenticated
