@@ -4,24 +4,25 @@ import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
 Geocode.setApiKey("AIzaSyB40ugc6sVQINRC16FT7v3llx43H99CQ1A");
 Geocode.enableDebug();
-class Map extends React.Component{
-constructor( props ){
-  super( props );
-  this.state = {
-   address: '',
-   city: '',
-   area: '',
-   state: '',
-   mapPosition: {
-    lat: this.props.center.lat,
-    lng: this.props.center.lng
-   },
-   markerPosition: {
-    lat: this.props.center.lat,
-    lng: this.props.center.lng
-}
+
+class Map extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      address: '',
+      city: '',
+      area: '',
+      state: '',
+      mapPosition: {
+        lat: this.props.center.lat,
+        lng: this.props.center.lng
+      },
+      markerPosition: {
+        lat: this.props.center.lat,
+        lng: this.props.center.lng
+      }
+    }
   }
- }
 /**
   * Get the current address from the default map position and set those values in the state
   */
@@ -171,8 +172,7 @@ const address = place.formatted_address,
  onMarkerDragEnd = ( event ) => {
   console.log( 'event', event );
   let newLat = event.latLng.lat(),
-   newLng = event.latLng.lng(),
-   addressArray = [];
+   newLng = event.latLng.lng();
 Geocode.fromLatLng( newLat , newLng ).then(
    response => {
     const address = response.results[0].formatted_address,

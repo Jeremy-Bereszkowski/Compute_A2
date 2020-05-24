@@ -1,59 +1,33 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import moment from 'moment'
-import Auth from './res/auth';
 import { fetchForecastByCityName } from '../services/openweathermap'
 import ForecastView from '../views/ForecastView'
+import Auth from './res/auth'
 
 const auth = new Auth();
 
 class Forecast5 extends Component {
-	constructor(props){
-	super(props)
-	this.state = {
-		loading: false,
-		forecast: [],
-		cityName: 'Melbourne,au'
+	constructor(props) {
+		super(props)
+		this.state = {
+			loading: false,
+			forecast: [],
+			cityName: 'Melbourne, AU'
+		}
+		this.getForecastData = this.getForecastData.bind(this);
+		this.onTodoChange = this.onTodoChange.bind(this);
 	}
-	this.getForecastData = this.getForecastData.bind(this);
-	this.onTodoChange = this.onTodoChange.bind(this);
-	}
 
-
-
-
-	componentWillMount() {	
-		
-		//console.log(this.apiCall());
-		
+	componentDidMount() {	
 		this.getForecastData();
 	}
-	
 
-	async getForecastData() {
-
-		/*let cityName = ''
-
-		if (auth.isAuthenticated() === true) {
-			await fetch('https://us-central1-compute-a2-2020.cloudfunctions.net/auth/favCity/' + localStorage.getItem('id_token'))
-			.then((res) => {
-				if (res.status === 200) {
-					return res.json();
-				}
-			})
-			.then((res) => {
-				console.log(res)
-				cityName= res[0].fav_city
-				
-			})
-		} else {
-			cityName= 'Brisbane,AU'
-		}
-		
-
-		this.cityName = cityName
-		*/
+	async getForecastData(city) {
 		this.setState({ loading: true });
-		const result = await fetchForecastByCityName(this.state.cityName);
+
+		const cityName = city ? city : auth.isAuthenticated() ? auth.getFavCity() : this.state.cityName
+
+		const result = await fetchForecastByCityName(cityName);
 
 		this.setState({
 			loading: false,
@@ -66,34 +40,59 @@ class Forecast5 extends Component {
 		});
 	}
 
-	onTodoChange(e){
-		console.log(e)
+	onTodoChange = (e) => {
+		e.preventDefault()
+		const city = e.target.city.value
 		this.setState({
-			cityName: e.target.value
+			...this.state,
+			cityName: city
 		});
-		console.log(this.cityName)
-    }
+		this.getForecastData(city);
+	}
+
+	showFav = (e) => {
+		e.preventDefault()
+		const city = auth.getFavCity()
+		this.setState({
+			...this.state,
+			cityName: city
+		});
+		this.getForecastData(city);
+	}
+
+	showFavorite = (
+		<div className="col-sm">
+			<button type="submit" className="btn btn-primary" onClick={this.showFav}>
+				Show Favorite
+			</button>
+		</div>
+	)
 
 	render() {
 		return (
 			<div className="input-container">
-			<h1 className="input-header" id="homeHeader">Enter a Location and Country and Press Enter</h1>
-			<div className="input-controls">
-				<input type="text" placeholder="Melbourne, au" className="form-control" onKeyPress={(e) => {this.onTodoChange(e)}}/>
-				{console.log(this.state.cityName)}
-
-			</div>
-			<ForecastView
-				cityName={this.state.cityName}
-				forecast={this.state.forecast}
-				loading={this.state.loading}
-				onPressRefresh={() => this.getForecastData()}
-			/>
+				<h1 className="input-header" id="homeHeader">Enter a Location</h1>
+				<form onSubmit={this.onTodoChange}>
+					<div className="row">
+						<div className="col-sm">
+							<input id='city' type="text" placeholder="Format: City,Country" className="form-control" />
+						</div>
+						<div className="col-sm">
+							<button type="submit" className="btn btn-secondary">
+								Refresh
+							</button>
+						</div>
+						{auth.isAuthenticated() ? this.showFavorite : ''}
 					</div>
-
+				</form>
+				<ForecastView
+					cityName={this.state.cityName}
+					forecast={this.state.forecast}
+					loading={this.state.loading}
+				/>
+			</div>
 		);
 	}
 }
-
 
 export default Forecast5;

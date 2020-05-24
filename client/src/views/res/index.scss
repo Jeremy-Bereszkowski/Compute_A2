@@ -84,10 +84,11 @@ $spin-duration: 1s;
 	background-color: #1D56B0;
 	padding: 10px;
 	box-sizing: border-box;
-	min-height: 100vh;
+	min-height: 30vh;
+	min-width: 400px;
 
 	.city-name {
-		padding: 60px;
+		padding: 20px;
 		text-align: center;
 
 		span {
