@@ -42,7 +42,7 @@ exports.auth = router.post('/login', cors(), async (req, res) => {
   try {
     res.set('Access-Control-Allow-Methods', 'POST');
     res.set('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+    res.set('Access-Control-Allow-Origin', 'http://35.244.86.46')
     res.set('Access-Control-Max-Age', '3600');
 
     //Create new deposit record

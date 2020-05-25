@@ -25,7 +25,7 @@ function Header(props) {
         headers: {
           'content-type': 'application/json',
           'Accept': 'application/json',
-          'Origin':'http://localhost:3000',
+          'Origin':'http://35.244.86.46',
         },
         body: JSON.stringify({
           uname: username.value,
